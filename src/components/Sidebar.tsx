@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { NavLink } from 'react-router-dom';
-import { Home, BookOpen, FileQuestion, Download, MessageSquare, User, LogOut, Brain, X } from 'lucide-react';
+import { Home, BookOpen, FileQuestion, Download, MessageSquare, User, LogOut, Brain, X, Video } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 interface SidebarProps {
@@ -14,6 +14,7 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
   const menuItems = [
     { icon: Home, label: 'Home', path: '/dashboard' },
     { icon: BookOpen, label: 'Generate Lecture', path: '/dashboard/generate' },
+    { icon: Video, label: 'Animation Studio', path: '/dashboard/animations' },
     { icon: FileQuestion, label: 'My Quizzes', path: '/dashboard/quizzes' },
     { icon: Download, label: 'Downloads', path: '/dashboard/downloads' },
     { icon: MessageSquare, label: 'Doubt Sessions', path: '/dashboard/doubts' },

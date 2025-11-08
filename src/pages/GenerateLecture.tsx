@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, Download, Video, FileText, RefreshCw } from 'lucide-react';
+import { Sparkles, Download, Video, FileText, RefreshCw, Play } from 'lucide-react';
 import { mockQuestions } from '../utils/mockData';
+import { animationTemplates } from '../utils/animationTemplates';
+import InteractiveAnimationPlayer from '../components/InteractiveAnimationPlayer';
 
 const GenerateLecture = () => {
   const [topic, setTopic] = useState('');
@@ -14,6 +16,8 @@ const GenerateLecture = () => {
   const [quizAnswers, setQuizAnswers] = useState<{ [key: number]: number }>({});
   const [quizSubmitted, setQuizSubmitted] = useState(false);
   const [score, setScore] = useState(0);
+  const [showAnimation, setShowAnimation] = useState(false);
+  const [selectedAnimationIdx, setSelectedAnimationIdx] = useState(0);
 
   const handleGenerate = async () => {
     setGenerating(true);
@@ -261,6 +265,49 @@ const GenerateLecture = () => {
                 </button>
               </motion.div>
             </div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.25 }}
+              className="bg-white rounded-2xl p-6 shadow-lg"
+            >
+              <div className="flex items-center gap-3 mb-4">
+                <Play className="w-6 h-6 text-[#E63946]" />
+                <h3 className="text-xl font-bold text-[#1C1C1C]">Interactive Animation</h3>
+              </div>
+              <p className="text-gray-600 mb-4">
+                See this concept come alive with step-by-step animations
+              </p>
+              <div className="flex gap-3 flex-wrap mb-4">
+                {animationTemplates.slice(0, 3).map((anim, idx) => (
+                  <button
+                    key={anim.id}
+                    onClick={() => {
+                      setSelectedAnimationIdx(idx);
+                      setShowAnimation(true);
+                    }}
+                    className="px-4 py-2 bg-[#E63946] bg-opacity-10 text-[#E63946] rounded-lg hover:bg-opacity-20 transition-all duration-300 text-sm font-semibold"
+                  >
+                    {anim.title}
+                  </button>
+                ))}
+              </div>
+              {showAnimation && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mb-4 p-4 bg-blue-50 rounded-lg border border-blue-200"
+                >
+                  <InteractiveAnimationPlayer
+                    animation={animationTemplates[selectedAnimationIdx]}
+                    onComplete={() => {
+                      setTimeout(() => setShowAnimation(false), 2000);
+                    }}
+                  />
+                </motion.div>
+              )}
+            </motion.div>
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}

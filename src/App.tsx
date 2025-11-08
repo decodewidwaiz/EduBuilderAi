@@ -6,6 +6,7 @@ import Signup from './pages/Signup';
 import DashboardLayout from './components/DashboardLayout';
 import Dashboard from './pages/Dashboard';
 import GenerateLecture from './pages/GenerateLecture';
+import AnimationStudio from './pages/AnimationStudio';
 import Quizzes from './pages/Quizzes';
 import Downloads from './pages/Downloads';
 import DoubtSessions from './pages/DoubtSessions';
@@ -60,6 +61,7 @@ function App() {
           >
             <Route index element={<Dashboard />} />
             <Route path="generate" element={<GenerateLecture />} />
+            <Route path="animations" element={<AnimationStudio />} />
             <Route path="quizzes" element={<Quizzes />} />
             <Route path="downloads" element={<Downloads />} />
             <Route path="doubts" element={<DoubtSessions />} />
